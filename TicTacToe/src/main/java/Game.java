@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 public class Game {
 
+
+    //handles scores
+    //how many games are played
     public static void Game(){
         Scanner scan = new Scanner(System.in);
         int numWins = 0;
@@ -20,6 +23,7 @@ public class Game {
             catch (NumberFormatException ex) {
             }
         }
+
         System.out.println("How to Play: You must type in the number of the space of your choice.");
         for(int i = 0; i < numGames; i++){
             temp = gameLogic();
@@ -30,10 +34,14 @@ public class Game {
         }
     }
 
+
+    //Display scoreboard
     public static void displayScore(int win, int loss, int tie){
         System.out.println("Wins: " + win + " | " + "Loss: " + loss + " | " + "Tie: " + tie);
     }
 
+
+    //handles user input and the order in which the game runs
     public static int gameLogic(){
         int[][] board = {
                 {1, 2, 3},
@@ -61,6 +69,8 @@ public class Game {
         }
         return check;
     }
+
+    //check all possible cases for win
     public static int check(int[][] board){
         int check = 1;
         if(board[0][0] == 10 && board[0][1]== 10 && board[0][2]==10) check = 3;     //top row
@@ -88,6 +98,9 @@ public class Game {
         else if(board[0][2] == 0 && board[1][1]== 0 && board[2][0]==0) check = 2; //right to left diagonal
         return check;
     }
+
+    //updates board, by who and where
+    //does not verify
     public static int[][] updateBoard(int[][] board, String who, int placement){
         placement--;
         int row = placement / 3;
@@ -100,6 +113,8 @@ public class Game {
         }
         return board;
     }
+
+
     //gets valid user input and checks input
     public static int[][] playerInput(int[][] board){
         Scanner scan = new Scanner(System.in);
