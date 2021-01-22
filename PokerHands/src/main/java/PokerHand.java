@@ -194,7 +194,15 @@ public class PokerHand {
         else if(this.isFlush()){
             player = 6;
         }
-        //else if(this.)
+        else if(this.straightHighCardValue()!= null){
+            player = 5;
+        }
+        else if(this.threeOfAKindValue() != null){
+            player = 4;
+        }
+        else if(this.pairValue()!= null){
+            player = 3;
+        }
         return 0;    //for now
     }
 
