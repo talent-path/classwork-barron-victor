@@ -24,9 +24,26 @@ public class Application {
 //        }
 //        return sum;
 //    }
-        System.out.println("Max sequence from 0 to 1,000,000 is: " + maxSequence());
+       // System.out.println("Max sequence from 0 to 1,000,000 is: " + maxSequence());
 
+        System.out.println(digitReversal(123456));
     }
+
+    public static int digitReversal(int toFlip){
+        ArrayList<Integer> arr = new ArrayList<Integer>();
+        int count;
+        int newSum = 0;
+        for(int i = toFlip; i > 0; i = i/10){
+            arr.add(i%10);
+        }
+        count = arr.size() -1;
+        for(int i = 0; i < arr.size(); i++){
+            newSum = newSum + (arr.get(i) * (int)Math.pow(10.0,count));
+            count--;
+        }
+        return newSum;
+    }
+
 
     public static Long maxSequence(){
         int maxSequenceLen = 0;
