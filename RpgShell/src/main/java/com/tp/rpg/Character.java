@@ -44,7 +44,7 @@ public abstract class Character implements Chooser {
         defender.setArmorUsed(new Naked());
     }
     public void takeDamage( int damage ){
-        setHp(armorUsed.reduceDamage(damage));
+        setHp(this.Hp - armorUsed.reduceDamage(damage));
     }
 
     public boolean isAlive(){
@@ -61,7 +61,6 @@ public abstract class Character implements Chooser {
         String choice = null;
         while (!isValid) {
             Console.print("What would you like to do?");
-            String userInput = scan.nextLine();
             try {
                 choice = scan.nextLine();
                 if(choice.equals("Attack") || choice.equals("Use potion") || choice.equals("Disarm")) {
@@ -74,6 +73,6 @@ public abstract class Character implements Chooser {
     }
 
     public void displayHp(){
-        System.out.println();
+        System.out.print(this.Hp);
     }
 }

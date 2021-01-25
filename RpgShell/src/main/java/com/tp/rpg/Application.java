@@ -94,48 +94,77 @@ public class Application {
         switch (npcChoice) {
             case 1:
                 npc.setArmorUsed(new Naked());
+                System.out.println("Your Enemy selected to be naked!");
+                break;
             case 2:
                 npc.setArmorUsed(new TankTop());
+                System.out.println("Your Enemy selected a Tank Top");
+                break;
             case 3:
                 npc.setArmorUsed(new Shirt());
+                System.out.println("Your Enemy selected a Shirt");
+                break;
             case 4:
                 npc.setArmorUsed(new ChainLink());
+                System.out.println("Your Enemy selected ChainLink");
+                break;
             case 5:
                 npc.setArmorUsed(new KnightArmor());
+                System.out.println("Your Enemy selected Knight Armor");
+                break;
         }
         npcChoice = rn.nextInt(5 - 1 + 1) + 1;
         switch (npcChoice) {
             case 1:
                 npc.setWeaponUsed(new Fist());
+                System.out.println("Your Enemy selected to use their Fists!");
+                break;
             case 2:
                 npc.setWeaponUsed(new Stick());
+                System.out.println("Your Enemy selected to use a Stick");
+                break;
             case 3:
                 npc.setWeaponUsed(new LargeStick());
+                System.out.println("Your Enemy selected to use a Large Stick");
+                break;
             case 4:
                 npc.setWeaponUsed(new Sword());
+                System.out.println("Your Enemy selected to use a Sword");
+                break;
             case 5:
                 npc.setWeaponUsed(new LightSaber());
+                System.out.println("Your Enemy selected to use a LightSaber");
+                break;
         }
+        npc.setHp(100);
         return npc;
     }
 
     //a and b battle until one is dead
     private static void battle(Character a, Character b) {
-        Character attacker = a;
-        Character defender = b;
+        boolean turnOver;
+        while( a.isAlive() && b.isAlive() ){            // handles users choice
+            if( a.makeChoice().equals("Attack")) {
+                a.attack(b);
+            } else if(a.makeChoice().equals("Use Potion")){
+                a.usePotions();
+            }
+            else if(a.makeChoice().equals("Disarm")){
+                a.disarm(b);
+            }
 
-        while( a.isAlive() && b.isAlive() ){
-            if( attacker.makeChoice().equals("Attack")) {
-                attacker.attack(defender);
-            } else if(attacker.makeChoice().equals("Use Potion")){
-                attacker.usePotions();
-            }
-            else if(attacker.makeChoice().equals("Disarm")){
-                attacker.disarm(defender);
-            }
-            Character temp = a;
-            a = b;
-            b = temp;
+            turnOver = true;
+            while( a.isAlive() && b.isAlive() && turnOver ) {
+                if( b.makeChoice().equals("Attack")) {
+                    b.attack(a);
+                } else if(b.makeChoice().equals("Use Potion")){
+                    b.usePotions();
+                }
+                else if(b.makeChoice().equals("Disarm")){
+                    b.disarm(a);
+                }
+                turnOver = false;
+            }       //handles npc choice
         }
     }
 
@@ -143,6 +172,10 @@ public class Application {
     private static void gameOverScreen() {
     }
 
+    private static void displayHP(Character curr){
+        System.out.println("Your Health is ");
+        curr.displayHp();
+    }
     private static void displayOptions(){
         System.out.println("Attack");
         System.out.println("Use Potion");
