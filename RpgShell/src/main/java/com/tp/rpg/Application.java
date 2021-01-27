@@ -19,9 +19,7 @@ public class Application {
         }
 
         gameOverScreen();
-
     }
-
     private static void displayStats() {
     }
 
