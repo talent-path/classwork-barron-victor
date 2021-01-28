@@ -2,6 +2,7 @@ package com.tp.connectFour.controllers;
 
 public class MoveRequest {
     private int gameId;
+    private int column;
 
     public int getGameId() {
         return gameId;
@@ -18,6 +19,4 @@ public class MoveRequest {
     public void setColumn(int column) {
         this.column = column;
     }
-
-    private int column;
 }

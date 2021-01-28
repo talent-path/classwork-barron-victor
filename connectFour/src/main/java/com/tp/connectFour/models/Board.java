@@ -22,10 +22,9 @@ public class Board {
         board = new Integer[6][7];
         for(int row = 0; row < 6; row++){
             for(int col = 0; col < 7; col++){
-                this.board[row][col] = 1;
+                this.board[row][col] = 0;
             }
         }
-
     }
 
     //update game board with a different state of board

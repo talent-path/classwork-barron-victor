@@ -32,34 +32,72 @@ public class Application {
 //        System.out.println(isPerfectNumber(6));  //true
 //        System.out.println(isPerfectNumber(12)); //false
 
+
         char[][] board;
-        board = new char{{"8","3",".",".","7",".",".",".","."},{"6",".",".","1","9","5",".",".","."} 
-,[".","9","8",".",".",".",".","6","."]
-,["8",".",".",".","6",".",".",".","3"]
-,["4",".",".","8",".","3",".",".","1"]
-,["7",".",".",".","2",".",".",".","6"]
-,[".","6",".",".",".",".","2","8","."]
-,[".",".",".","4","1","9",".",".","5"]
-,[".",".",".",".","8",".",".","7","9"]];
-
-
+        board = new char[][]{{'5','3','5','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};
+        //this one outputs true
+        System.out.println(isValidSudoku(board));
+        char[][] secondBoard = new char[][]{{'8','3','.','.','7','.','.','.','.'}
+                ,{'6','.','.','1','9','5','.','.','.'}
+                ,{'.','9','8','.','.','.','.','6','.'}
+                ,{'8','.','.','.','6','.','.','.','3'}
+                ,{'4','.','.','8','.','3','.','.','1'}
+                ,{'7','.','.','.','2','.','.','.','6'}
+                ,{'.','6','.','.','.','.','2','8','.'}
+                ,{'.','.','.','4','1','9','.','.','5'}
+                ,{'.','.','.','.','8','.','.','7','9'}};
+        System.out.println(isValidSudoku(secondBoard));
+    }
+    public void solveSudoku(char[][] board) {
+        backtrack(board, 0, 0);
     }
 
+    boolean backtrack(char[][] board, int row, int col) {
+        if(col == board.length) {
+            row++;
+            col = 0;
+        }
 
-    public boolean isValidSudoku(char[][] board) {
-            if(!isRowsValid(board)){
-                return false;
+        if(row >= board.length)
+            return true;
+
+        if(board[row][col] != '.')
+            return backtrack(board, row, col + 1);
+
+        for(char i = '1'; i <= '9'; i++)
+            if(isValidFill(board, row, col, i)) {
+                board[row][col] = i;
+                if(backtrack(board, row, col + 1)) return true;
+                board[row][col] = '.';
             }
-            if(!isColsValid(board)){
+
+        return false;
+    }
+
+    public boolean isValidFill(char[][] b, int i, int j, char fill){
+        int r = i / 3 * 3 + j / 3;
+        for(int k = 0; k < 9; k++)
+            if(b[i][k] == fill || b[k][j] == fill || b[r / 3 * 3 + k / 3][r % 3 * 3 + k % 3] == fill)
                 return false;
-            }
-            if(!isSquaresValid(board)) {
-                return false;
-            }
         return true;
+
     }
 
-    private boolean isSquaresValid(char[][] board) {
+    public static boolean isValidSudoku(char[][] board) {
+        boolean validSo = true;
+            if(isRowsValid(board)){
+                validSo =  false;
+            }
+            if(isColsValid(board)){
+                validSo =  false;
+            }
+            if(isSquaresValid(board)) {
+                validSo =  false;
+            }
+        return validSo;
+    }
+
+    private static boolean isSquaresValid(char[][] board) {
         int rStart = 0;
         int cStart = 0;
         int rStop = 3;
@@ -71,8 +109,10 @@ public class Application {
                         char selected = board[row][col];
                         for (int r = rStart; row < rStop; row++) {
                             for (int c = cStart; col < cStop; col++) {
-                                if (board[r][c] == selected && (r != row && c != col)) {
-                                    return false;
+                                if (!(r != row && c != col)) {
+                                    if(board[r][c] == selected){
+                                        return false;
+                                    }
                                 }
                             }
                         }
@@ -93,7 +133,7 @@ public class Application {
         return true;
     }
 
-    private boolean isColsValid(char[][] board) {
+    private static boolean isColsValid(char[][] board) {
         for(int column = 0; column < board.length; column++){
             //traverse through each colummn
             for(int row = 0; row < board.length; row++){
@@ -112,7 +152,7 @@ public class Application {
         return true;
     }
 
-    private boolean isRowsValid(char[][] board) {
+    private static boolean isRowsValid(char[][] board) {
         for(int i = 0; i < board.length; i++){
             //traverse through each row
             for(int j = 0; j < board.length; j++){
