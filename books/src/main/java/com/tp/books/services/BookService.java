@@ -89,7 +89,7 @@ public class BookService {
         return getById(bookId);
     }
 
-    public Book addBook(String title, List<String> authors, Integer pubYear) throws InvalidFieldException, NullWordException, InvalidBookIdException {
+    public Integer addBook(String title, List<String> authors, Integer pubYear) throws InvalidFieldException, NullWordException, InvalidBookIdException {
         if(title == null){
             throw new NullWordException("title is null");
         }
@@ -114,9 +114,7 @@ public class BookService {
             throw new InvalidFieldException("Publication year is not within range");
         }
 
-        int bookId = dao.addBook(title, authors, pubYear);
-        return dao.getById(bookId);
-
+        return dao.addBook(title, authors, pubYear);
     }
 
 }

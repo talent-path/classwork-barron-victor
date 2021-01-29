@@ -21,9 +21,8 @@ public class BookInMemDaoTest {
 
     @BeforeEach
     public void setup() throws InvalidBookIdException, NullWordException {
-        List<Book> allGames = toTest.getAllBooks();
-
-        for( Book toRemove : allGames ){
+        List<Book> allBooks = toTest.getAllBooks();
+        for( Book toRemove : allBooks ){
             toTest.deleteBook(toRemove.getBookId());
         }
 
@@ -67,7 +66,6 @@ public class BookInMemDaoTest {
             int id = toTest.addBook(title,authors,2020);
 
             assertEquals(3, toTest.getByTitle("The Big Book"));
-
 
         }catch (NoBooksException | NullWordException e){
             fail();
