@@ -33,141 +33,125 @@ public class Application {
 //        System.out.println(isPerfectNumber(12)); //false
 
 
-        char[][] board;
-        board = new char[][]{{'5','3','5','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};
-        //this one outputs true
-        System.out.println(isValidSudoku(board));
-        char[][] secondBoard = new char[][]{{'8','3','.','.','7','.','.','.','.'}
-                ,{'6','.','.','1','9','5','.','.','.'}
-                ,{'.','9','8','.','.','.','.','6','.'}
-                ,{'8','.','.','.','6','.','.','.','3'}
-                ,{'4','.','.','8','.','3','.','.','1'}
-                ,{'7','.','.','.','2','.','.','.','6'}
-                ,{'.','6','.','.','.','.','2','8','.'}
-                ,{'.','.','.','4','1','9','.','.','5'}
-                ,{'.','.','.','.','8','.','.','7','9'}};
-        System.out.println(isValidSudoku(secondBoard));
-    }
-    public void solveSudoku(char[][] board) {
-        backtrack(board, 0, 0);
+//        char[][] board;
+//        board = new char[][]{{'5','3','5','.','7','.','.','.','.'},{'6','.','.','1','9','5','.','.','.'},{'.','9','8','.','.','.','.','6','.'},{'8','.','.','.','6','.','.','.','3'},{'4','.','.','8','.','3','.','.','1'},{'7','.','.','.','2','.','.','.','6'},{'.','6','.','.','.','.','2','8','.'},{'.','.','.','4','1','9','.','.','5'},{'.','.','.','.','8','.','.','7','9'}};
+//        //this one outputs true
+//        System.out.println(isValidSudoku(board));
+//        char[][] secondBoard = new char[][]{{'8','3','.','.','7','.','.','.','.'}
+//                ,{'6','.','.','1','9','5','.','.','.'}
+//                ,{'.','9','8','.','.','.','.','6','.'}
+//                ,{'8','.','.','.','6','.','.','.','3'}
+//                ,{'4','.','.','8','.','3','.','.','1'}
+//                ,{'7','.','.','.','2','.','.','.','6'}
+//                ,{'.','6','.','.','.','.','2','8','.'}
+//                ,{'.','.','.','4','1','9','.','.','5'}
+//                ,{'.','.','.','.','8','.','.','7','9'}};
+//        System.out.println(isValidSudoku(secondBoard));
     }
 
-    boolean backtrack(char[][] board, int row, int col) {
-        if(col == board.length) {
-            row++;
-            col = 0;
+
+    public int rangeSumBST(TreeNode root, int low, int high) {
+        int sum = 0;
+        if(root.val >= low && root.val <= high){
+            sum = root.val;
         }
-
-        if(row >= board.length)
-            return true;
-
-        if(board[row][col] != '.')
-            return backtrack(board, row, col + 1);
-
-        for(char i = '1'; i <= '9'; i++)
-            if(isValidFill(board, row, col, i)) {
-                board[row][col] = i;
-                if(backtrack(board, row, col + 1)) return true;
-                board[row][col] = '.';
-            }
-
-        return false;
-    }
-
-    public boolean isValidFill(char[][] b, int i, int j, char fill){
-        int r = i / 3 * 3 + j / 3;
-        for(int k = 0; k < 9; k++)
-            if(b[i][k] == fill || b[k][j] == fill || b[r / 3 * 3 + k / 3][r % 3 * 3 + k % 3] == fill)
-                return false;
-        return true;
-
-    }
-
-    public static boolean isValidSudoku(char[][] board) {
-        boolean validSo = true;
-            if(isRowsValid(board)){
-                validSo =  false;
-            }
-            if(isColsValid(board)){
-                validSo =  false;
-            }
-            if(isSquaresValid(board)) {
-                validSo =  false;
-            }
-        return validSo;
-    }
-
-    private static boolean isSquaresValid(char[][] board) {
-        int rStart = 0;
-        int cStart = 0;
-        int rStop = 3;
-        int cStop = 3;
-        for(int i = 0; i < board.length; i++) {
-            for (int row = rStart; row < rStop; row++) {
-                for (int col = cStart; col < cStop; col++) {
-                    if (board[row][col] != '.') {
-                        char selected = board[row][col];
-                        for (int r = rStart; row < rStop; row++) {
-                            for (int c = cStart; col < cStop; col++) {
-                                if (!(r != row && c != col)) {
-                                    if(board[r][c] == selected){
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                if(cStop < board.length){
-                    cStart+= 3;
-                    cStop+=3;
-                }
-                else{
-                    cStart = 0;
-                    cStop = 0;
-                    rStart+=3;
-                    rStop+=3;
-                }
-            }
+        if(root.left != null){
+            sum += rangeSumBST(root.left, low, high);
         }
-        return true;
-    }
-
-    private static boolean isColsValid(char[][] board) {
-        for(int column = 0; column < board.length; column++){
-            //traverse through each colummn
-            for(int row = 0; row < board.length; row++){
-                //grabs each value and check the entire row with it
-                if(board[row][column] != ('.')){
-                    for(int ros = 0; ros < board.length && row != row; ros++){
-                        if(board[row][column] == board[ros][column] && row != ros){
-                            return false;
-                        }
-                    }
-                }
-
-            }
-
+        if(root.right != null){
+            sum += rangeSumBST(root.right, low, high);
         }
-        return true;
+        return sum;
     }
 
-    private static boolean isRowsValid(char[][] board) {
-        for(int i = 0; i < board.length; i++){
-            //traverse through each row
-            for(int j = 0; j < board.length; j++){
-                //grabs each value and check the entire row with it
-                if(board[i][j] != ('.')){
-                    for(int cols = 0; cols < board.length && j != j; cols++){
-                        if(board[i][j] == board[i][cols] && cols != j){
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-        return true;
-    }
+
+
+//
+//    public static boolean isValidSudoku(char[][] board) {
+//        boolean validSo = true;
+//            if(isRowsValid(board)){
+//                validSo =  false;
+//            }
+//            if(isColsValid(board)){
+//                validSo =  false;
+//            }
+//            if(isSquaresValid(board)) {
+//                validSo =  false;
+//            }
+//        return validSo;
+//    }
+//
+//    private static boolean isSquaresValid(char[][] board) {
+//        int rStart = 0;
+//        int cStart = 0;
+//        int rStop = 3;
+//        int cStop = 3;
+//        for(int i = 0; i < board.length; i++) {
+//            for (int row = rStart; row < rStop; row++) {
+//                for (int col = cStart; col < cStop; col++) {
+//                    if (board[row][col] != '.') {
+//                        char selected = board[row][col];
+//                        for (int r = rStart; row < rStop; row++) {
+//                            for (int c = cStart; col < cStop; col++) {
+//                                if (!(r != row && c != col)) {
+//                                    if(board[r][c] == selected){
+//                                        return false;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                if(cStop < board.length){
+//                    cStart+= 3;
+//                    cStop+=3;
+//                }
+//                else{
+//                    cStart = 0;
+//                    cStop = 0;
+//                    rStart+=3;
+//                    rStop+=3;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+//
+//    private static boolean isColsValid(char[][] board) {
+//        for(int column = 0; column < board.length; column++){
+//            //traverse through each colummn
+//            for(int row = 0; row < board.length; row++){
+//                //grabs each value and check the entire row with it
+//                if(board[row][column] != ('.')){
+//                    for(int ros = 0; ros < board.length && row != row; ros++){
+//                        if(board[row][column] == board[ros][column] && row != ros){
+//                            return false;
+//                        }
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//        return true;
+//    }
+//
+//    private static boolean isRowsValid(char[][] board) {
+//        for(int i = 0; i < board.length; i++){
+//            //traverse through each row
+//            for(int j = 0; j < board.length; j++){
+//                //grabs each value and check the entire row with it
+//                if(board[i][j] != ('.')){
+//                    for(int cols = 0; cols < board.length && j != j; cols++){
+//                        if(board[i][j] == board[i][cols] && cols != j){
+//                            return false;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
 
 //    private static boolean isPerfectNumber(int i) {
