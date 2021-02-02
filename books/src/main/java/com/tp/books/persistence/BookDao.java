@@ -18,7 +18,7 @@ public interface BookDao {
 
     Book getById(Integer id) throws InvalidBookIdException, NullWordException;
 
-    void deleteBook(Integer bookId) throws InvalidBookIdException;
+    void deleteBook(Integer bookId) throws InvalidBookIdException, NullWordException;
 
     Book updateBook(Integer id, String titleNew, List<String> authorsNew, Integer yearNew) throws InvalidBookIdException, NullWordException;
 

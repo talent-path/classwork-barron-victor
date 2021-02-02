@@ -55,7 +55,7 @@ public class BooksController {
     }
 
     @DeleteMapping("/delete/{bookId}")
-    public String deleteGame( @PathVariable Integer bookId ) throws InvalidBookIdException {
+    public String deleteGame( @PathVariable Integer bookId ) throws InvalidBookIdException, NullWordException {
             service.deleteBook(bookId);
             return "Book " + bookId + " successfully deleted.";
     }

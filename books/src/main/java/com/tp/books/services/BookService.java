@@ -41,7 +41,7 @@ public class BookService {
         return dao.getById(id);
     }
 
-    public void deleteBook(Integer bookId) throws InvalidBookIdException {
+    public void deleteBook(Integer bookId) throws InvalidBookIdException, NullWordException {
         dao.deleteBook(bookId);
     }
 

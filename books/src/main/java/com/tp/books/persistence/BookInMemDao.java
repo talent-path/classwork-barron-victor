@@ -105,7 +105,10 @@ public class BookInMemDao implements BookDao{
     }
 
     @Override
-    public void deleteBook(Integer bookId) throws InvalidBookIdException {
+    public void deleteBook(Integer bookId) throws InvalidBookIdException, NullWordException {
+        if(bookId == null){
+            throw new NullWordException("Tried to search a null id" );
+        }
 
         int removeIndex = -1;
 

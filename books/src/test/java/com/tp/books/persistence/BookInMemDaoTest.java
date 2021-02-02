@@ -309,5 +309,32 @@ public class BookInMemDaoTest {
         assertThrows(InvalidBookIdException.class,() -> toTest.updateBook(7,"UpdatedBookTitle", authorsTwo, 1990));
     }
 
+    @Test
+    public void testDeleteBook() {
+        try {
+
+            String title = "Book1";
+            List<String> authors = new ArrayList<>();
+            authors.add("AuthorOne");
+            authors.add("AuthorTwo");
+            Book book1 = toTest.addBook(title,authors,2020);
+
+            assertEquals(1,toTest.getById(1).getBookId());
+            toTest.deleteBook(1);
+            assertThrows(InvalidBookIdException.class, () -> toTest.getById(1));
+        } catch(NullWordException | InvalidBookIdException ex ){
+            fail();
+        }
+    }
+
+    @Test
+    public void testDeleteBookInvalidId() {
+        assertThrows(InvalidBookIdException.class,() -> toTest.deleteBook(7));
+    }
+
+    @Test
+    public void testDeleteBookNullId() {
+        assertThrows(NullWordException.class,() -> toTest.deleteBook(null));
+    }
 
 }
