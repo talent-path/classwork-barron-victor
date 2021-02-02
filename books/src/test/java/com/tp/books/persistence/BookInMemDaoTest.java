@@ -141,13 +141,18 @@ public class BookInMemDaoTest {
             assertEquals(true, toTest.getByAuthor("AuthorOne").get(2).getAuthors().contains("AuthorOne"));
             //correct years
             assertEquals(2020,toTest.getByAuthor("AuthorOne").get(1).getPubYear());
-            assertEquals(2020,toTest.getByAuthor("AuthorOne").get(1).getPubYear());
+            assertEquals(2020,toTest.getByAuthor("AuthorOne").get(2).getPubYear());
         } catch (NullWordException | InvalidBookIdException | NoBooksException e) {
             fail();
         }
 
     }
+
     //test null getByAuthor
+    @Test
+    public void testGetByAuthorNull() {
+        assertThrows(NullWordException.class,() -> toTest.getByAuthor(null));
+    }
 
     @Test
     public void testGetByTitle() {
@@ -180,8 +185,129 @@ public class BookInMemDaoTest {
 
     }
 
+    @Test
+    public void testGetByTitleNull() {
+        assertThrows(NullWordException.class,() -> toTest.getByTitle(null));
+    }
+
+    @Test
+    public void testGetByYear() {
+        String title1 = "Book2";
+        List<String> authors1 = new ArrayList<>();
+        authors1.add("AuthorOne");
+        authors1.add("AuthorTwo");
+        Integer year1 = 2020;
+
+        String title2 = "Book3";
+        List<String> authors2 = new ArrayList<>();
+        authors2.add("AuthorOne");
+        Integer year2 = 2020;
+        try {
+            Book secondBook = toTest.addBook(title1,authors1,year1);
+            Book thirdBook = toTest.addBook(title2,authors2,year2);
+
+            //correct amount of books returned
+            assertEquals(3, toTest.getByYear(2020).size());
+            //should return correct book ids
+            assertEquals(2, toTest.getByYear(2020).get(1).getBookId());
+            assertEquals(3,toTest.getByYear(2020).get(2).getBookId());
+            //should return correct titles
+            assertEquals("Book2", toTest.getByYear(2020).get(1).getTitle());
+            assertEquals("Book3", toTest.getByYear(2020).get(2).getTitle());
+            //correct authors
+            assertEquals(authors1, toTest.getByYear(2020).get(1).getAuthors());
+            assertEquals(authors2, toTest.getByYear(2020).get(2).getAuthors());
+            //correct years
+            assertEquals(2020,toTest.getByYear(2020).get(1).getPubYear());
+            assertEquals(2020,toTest.getByYear(2020).get(2).getPubYear());
+        } catch (NullWordException | InvalidBookIdException | NoBooksException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testGetByYearNull() {
+        assertThrows(NullWordException.class,() -> toTest.getByYear(null));
+    }
+
+    @Test
+    public void testGetById() {
+        String title1 = "Book2";
+        List<String> authors1 = new ArrayList<>();
+        authors1.add("AuthorOne");
+        authors1.add("AuthorTwo");
+        Integer year1 = 2020;
+
+        try {
+            Book secondBook = toTest.addBook(title1,authors1,year1);
+
+            //only returns one book with
+
+            //should return correct book ids
+            assertEquals(1, toTest.getById(1).getBookId());
+            assertEquals(2,toTest.getById(2).getBookId());
+            //should return correct titles
+            assertEquals("The Big Book", toTest.getById(1).getTitle());
+            assertEquals("Book2", toTest.getById(2).getTitle());
+            //correct authors
+            assertEquals(2, toTest.getById(1).getAuthors().size());
+            assertEquals(2, toTest.getById(2).getAuthors().size());
+            //correct years
+            assertEquals(2020,toTest.getById(1).getPubYear());
+            assertEquals(2020,toTest.getById(2).getPubYear());
+        } catch (NullWordException | InvalidBookIdException e) {
+            fail();
+        }
+
+    }
+
+    @Test
+    public void testGetByIdNull() {
+        assertThrows(NullWordException.class,() -> toTest.getById(null));
+    }
+
+    @Test
+    public void testGetByIdInvalidId() {
+        assertThrows(InvalidBookIdException.class,() -> toTest.getById(7));
+    }
+
+    @Test
+    public void testUpdateBook() {
+        try {
+
+            String title = "Book1";
+            List<String> authors = new ArrayList<>();
+            authors.add("AuthorOne");
+            authors.add("AuthorTwo");
+
+            List<String> authorsTwo = new ArrayList<>();
+            authors.add("AuthorOne");
 
 
+            Book book1 = toTest.addBook(title,authors,2020);
+            Book book2 = toTest.updateBook(2,"UpdatedBookTitle", authorsTwo, 1990);
+
+            assertEquals("UpdatedBookTitle", toTest.getById(2).getTitle());
+            assertEquals(authorsTwo, toTest.getById(2).getAuthors());
+            assertEquals(1990, toTest.getById(2).getPubYear());
+        } catch(NullWordException | InvalidBookIdException ex ){
+            fail();
+        }
+    }
+
+    @Test
+    public void testUpdateBookNullId() {
+        List<String> authorsTwo = new ArrayList<>();
+        authorsTwo.add("AuthorOne");
+        assertThrows(NullWordException.class,() -> toTest.updateBook(null,"UpdatedBookTitle", authorsTwo, 1990));
+    }
+
+    @Test
+    public void testUpdateBookInvalidId() {
+        List<String> authorsTwo = new ArrayList<>();
+        authorsTwo.add("AuthorOne");
+        assertThrows(InvalidBookIdException.class,() -> toTest.updateBook(7,"UpdatedBookTitle", authorsTwo, 1990));
+    }
 
 
 }

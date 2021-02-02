@@ -35,7 +35,10 @@ public class BookInMemDao implements BookDao{
 
     //only returns one book
     @Override
-    public Book getByTitle(String title) throws NoBooksException{
+    public Book getByTitle(String title) throws NoBooksException, NullWordException {
+        if(title == null){
+            throw new NullWordException("Tried to search a null title" );
+        }
         Book toReturn = null;
         for(Book toCopy: collection){
             if(toCopy.getTitle().equals(title)){
@@ -50,7 +53,10 @@ public class BookInMemDao implements BookDao{
     }
 
     @Override
-    public List<Book> getByAuthor(String author) throws NoBooksException{
+    public List<Book> getByAuthor(String author) throws NoBooksException, NullWordException {
+        if(author == null){
+            throw new NullWordException("Tried to search a null author" );
+        }
         List<Book> toReturn = new ArrayList<>();
         for(Book toCopy: collection){
             if(toCopy.getAuthors().contains(author)){
@@ -64,7 +70,10 @@ public class BookInMemDao implements BookDao{
     }
 
     @Override
-    public List<Book> getByYear(Integer year) throws NoBooksException{
+    public List<Book> getByYear(Integer year) throws NoBooksException, NullWordException {
+        if(year == null){
+            throw new NullWordException("Tried to search a null year" );
+        }
         List<Book> toReturn = new ArrayList<>();
         for(Book toCopy: collection){
             if(toCopy.getPubYear().equals(year)){
@@ -78,7 +87,10 @@ public class BookInMemDao implements BookDao{
     }
 
     @Override
-    public Book getById(Integer id) throws InvalidBookIdException {
+    public Book getById(Integer id) throws InvalidBookIdException, NullWordException {
+        if(id == null){
+            throw new NullWordException("Tried to search a null id" );
+        }
         Book toReturn = null;
         for(Book check: collection){
             if(check.getBookId().equals(id)) {
@@ -86,7 +98,7 @@ public class BookInMemDao implements BookDao{
                 break;
             }
         }
-        if(toReturn.equals(null)){
+        if(toReturn == null){
             throw new InvalidBookIdException("Book Id is not in collection");
         }
         return toReturn;
@@ -112,12 +124,24 @@ public class BookInMemDao implements BookDao{
     }
 
     @Override
-    public void updateBook(Book found) {
+    public Book updateBook(Integer id, String titleNew, List<String> authorsNew, Integer yearNew) throws InvalidBookIdException, NullWordException {
+        if(titleNew == null){
+            throw new NullWordException("title is null");
+        }
+        if(yearNew == null){
+            throw new NullWordException("Year is null");
+        }
+        Book found = new Book(getById(id));
+        found.setTitle(titleNew);
+        found.setAuthors(authorsNew);
+        found.setPubYear(yearNew);
+
         for( int i = 0; i < collection.size(); i++){
             if( collection.get(i).getBookId().equals(found.getBookId())){
                 collection.set(i, new Book(found) );
             }
         }
+        return new Book();
     }
 
     @Override
