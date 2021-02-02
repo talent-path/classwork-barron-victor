@@ -22,5 +22,5 @@ public interface BookDao {
 
     void updateBook(Book found);
 
-    int addBook(String title, List<String> authors, Integer pubYear) throws NullWordException;
+    Book addBook(String title, List<String> authors, Integer pubYear) throws NullWordException, InvalidBookIdException;
 }

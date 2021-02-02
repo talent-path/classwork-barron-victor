@@ -50,10 +50,8 @@ public class BooksController {
 
     @PostMapping("/addbook")
     public Book startBook(@RequestBody AddBookRequest request) throws InvalidBookIdException, NullWordException, InvalidFieldException {
-        Book book = null;
-           int bookId = service.addBook(request.getTitle(), request.getAuthors(), request.getPubYear());
-           book = service.getById(bookId);
-        return book;
+           Book toReturn = service.addBook(request.getTitle(), request.getAuthors(), request.getPubYear());
+        return toReturn;
     }
 
     @DeleteMapping("/delete/{bookId}")

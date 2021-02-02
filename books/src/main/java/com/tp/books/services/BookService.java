@@ -89,23 +89,12 @@ public class BookService {
         return getById(bookId);
     }
 
-    public Integer addBook(String title, List<String> authors, Integer pubYear) throws InvalidFieldException, NullWordException, InvalidBookIdException {
-        if(title == null){
-            throw new NullWordException("title is null");
-        }
+    public Book addBook(String title, List<String> authors, Integer pubYear) throws InvalidFieldException, NullWordException, InvalidBookIdException {
         if(title.contains("   ")){
             throw new InvalidFieldException("Title is empty");
         }
-        if(authors.isEmpty()){
-            throw new NullWordException("Authors is empty");
-        }
-        for(String name: authors){
-            if(authors.contains("   ")){
-                throw new InvalidFieldException(" Author name is empty");
-            }
-        }
-        if(pubYear == null){
-            throw new NullWordException("Year is null");
+        if(authors.contains("   ")){
+            throw new InvalidFieldException("Author name is empty");
         }
         if(pubYear > 1900 && pubYear <= 2021){
 

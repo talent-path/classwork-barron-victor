@@ -32,6 +32,8 @@ public class BookInMemDao implements BookDao{
         return copyList;
     }
 
+
+    //only returns one book
     @Override
     public Book getByTitle(String title) throws NoBooksException{
         Book toReturn = null;
@@ -119,7 +121,16 @@ public class BookInMemDao implements BookDao{
     }
 
     @Override
-    public int addBook(String title, List<String> authors, Integer pubYear) throws NullWordException {
+    public Book addBook(String title, List<String> authors, Integer pubYear) throws NullWordException, InvalidBookIdException {
+        if(title == null){
+            throw new NullWordException("title is null");
+        }
+        if(authors == null){
+            throw new NullWordException("Authors is empty");
+        }
+        if(pubYear == null){
+            throw new NullWordException("Year is null");
+        }
         int id = 0;
         for( Book toCheck : collection ){
             if( toCheck.getBookId() > id ){
@@ -129,7 +140,9 @@ public class BookInMemDao implements BookDao{
         id++;
         Book toAdd = new Book(id ,title ,authors ,pubYear);
         collection.add( toAdd );
-        return id;
+        Book toReturn = new Book(this.getById(id));
+
+        return toReturn;
     }
 
 }

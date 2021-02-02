@@ -45,7 +45,7 @@ public class BookServiceTest {
             authors.add("AuthorOne");
             authors.add("AuthorTwo");
 
-            int id = service.addBook(title,authors,2020);
+            Book id = service.addBook(title,authors,2020);
 
             assertEquals(2, id);
 

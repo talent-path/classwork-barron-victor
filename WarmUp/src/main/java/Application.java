@@ -47,22 +47,55 @@ public class Application {
 //                ,{'.','.','.','4','1','9','.','.','5'}
 //                ,{'.','.','.','.','8','.','.','7','9'}};
 //        System.out.println(isValidSudoku(secondBoard));
+
+        int[] nums = {2,5};
+        System.out.println(search(nums,5));
+
+    }
+
+    public static int search(int[] nums, int target) {
+        int top = nums.length -1 ;
+        int bottom = 0;
+        int index = top / 2;
+        boolean done = false;
+        if(top == 0 && target != nums[index]){
+            return -1;
+        }
+        while(!done){
+            if(target == nums[index]){
+                done = true;
+            }
+            else if(bottom == top ){
+                index = -1;
+                done = true;
+            }
+            else if(nums[index] < target){
+                bottom = index;
+                index = ((top - bottom) / 2) + bottom;
+            }
+            else if(nums[index] > target){
+                top = index;
+                index = ((top - bottom) / 2) + bottom;
+            }
+        }
+        return index;
     }
 
 
-    public int rangeSumBST(TreeNode root, int low, int high) {
-        int sum = 0;
-        if(root.val >= low && root.val <= high){
-            sum = root.val;
-        }
-        if(root.left != null){
-            sum += rangeSumBST(root.left, low, high);
-        }
-        if(root.right != null){
-            sum += rangeSumBST(root.right, low, high);
-        }
-        return sum;
-    }
+
+//    public int rangeSumBST(TreeNode root, int low, int high) {
+//        int sum = 0;
+//        if(root.val >= low && root.val <= high){
+//            sum = root.val;
+//        }
+//        if(root.left != null){
+//            sum += rangeSumBST(root.left, low, high);
+//        }
+//        if(root.right != null){
+//            sum += rangeSumBST(root.right, low, high);
+//        }
+//        return sum;
+//    }
 
 
 
