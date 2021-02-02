@@ -67,16 +67,13 @@ public class BookService {
     }
 
     public Book addBook(String title, List<String> authors, Integer pubYear) throws InvalidFieldException, NullWordException, InvalidBookIdException {
-        if(title.contains("   ")){
+        if(title.isEmpty()){
             throw new InvalidFieldException("Title is empty");
         }
-        if(authors.contains("   ")){
+        if(authors.isEmpty()){
             throw new InvalidFieldException("Author name is empty");
         }
-        if(pubYear > 1900 && pubYear <= 2021){
-
-        }
-        else{
+        if(!(pubYear > 1900 && pubYear <= 2021)) {
             throw new InvalidFieldException("Publication year is not within range");
         }
 

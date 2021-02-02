@@ -23,11 +23,6 @@ public class BookServiceTest {
     @BeforeEach
     public void setup() throws InvalidBookIdException, NullWordException, InvalidFieldException {
         new BookInMemDao();
-        List<Book> allBooks = service.getAllBooks();
-
-        for( Book toRemove : allBooks ){
-            service.deleteBook(toRemove.getBookId());
-        }
 
         List<String> authors = new ArrayList<>();
         authors.add("AuthorOne");
@@ -36,30 +31,19 @@ public class BookServiceTest {
         service.addBook( "The Big Book", authors, 2020);
     }
 
+    //testAddBookEmptyTitle
     @Test
-    public void testAddBookGoldenPath() {
-        try {
-            //1. Arrange (set up inputs)
-            String title = "Book";
-            List<String> authors = new ArrayList<>();
-            authors.add("AuthorOne");
-            authors.add("AuthorTwo");
-
-            Book id = service.addBook(title,authors,2020);
-
-            assertEquals(2, id);
-
-        } catch(NullWordException | InvalidFieldException | InvalidBookIdException ex ){
-            fail();
-        }
+    public void testAddBookEmptyTitle() {
+        List<String> authors1 = new ArrayList<>();
+        authors1.add("AuthorOne");
+        authors1.add("AuthorTwo");
+        assertThrows(InvalidFieldException.class, () -> service.addBook("  ", authors1,2019));
     }
 
-    //test getAllBooks
     //test getByTitle
     //test getByAuthor
     //test getByYear
     //test getById
-    //test deleteBook
     //test editBook
 
 
