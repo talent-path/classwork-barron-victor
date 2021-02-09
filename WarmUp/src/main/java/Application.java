@@ -48,28 +48,79 @@ public class Application {
 //                ,{'.','.','.','.','8','.','.','7','9'}};
 //        System.out.println(isValidSudoku(secondBoard));
 
-        System.out.println(hasCycle());
+        //System.out.println(minDays(10));
+
+
 
     }
 
-    public boolean hasCycle(ListNode head) {
-        int index = -1;
-        List<ListNode> order = new ArrayList();
+
+    public boolean validTicTacToe(String[] board) {
         boolean done = false;
-        while(!done){
-            if(head.next != null){
-                if(order.contains(head.next)){
-                    done = true;
-                }
-                set.put(index++, head.next);
-                head = head.next;
-            }else {
-                return false;
+        int xCount = 0;
+        int oCount = 0;
+        for(int i = 0; i < 3 ; i++){
+            for(int k = 0; k < 3;k++) {
+                if (board[i].charAt(k) == 'X') xCount++;
+                if (board[i].charAt(k) == 'O') oCount++;
             }
+        }
+        if(xCount == xCount){
+            return false;
         }
         return true;
     }
-    }
+Set<Integer> col = new Set<Integer>();
+
+//
+//    public static int minDays(int n) {
+//        if(n <= 0){
+//            return 0;
+//        }
+//        int one = n;
+//        int two = n;
+//        int three = n;
+//        List<Integer> set = new ArrayList<Integer>();
+//
+//        if(n%2 == 0){
+//            one = 1 + minDays(one/2);
+//            set.add(one);
+//        }
+//
+//        if(n%3 == 0){
+//            two = 1 + minDays(2 *(two/3));
+//            set.add(two);
+//        }
+//
+//        three = 1 + minDays(n-1);
+//        int toReturn = three;
+//        for(int i = 0; i < set.size() && set.isEmpty(); i++){
+//            if(set.get(i) < toReturn){
+//                toReturn = set.get(i);
+//            }
+//        }
+//        return toReturn;
+//    }
+
+//
+//    public boolean hasCycle(ListNode head) {
+//        int index = -1;
+//        List<ListNode> order = new ArrayList();
+//        boolean done = false;
+//        while(!done){
+//            if(head.next != null){
+//                if(order.contains(head.next)){
+//                    done = true;
+//                }
+//                set.put(index++, head.next);
+//                head = head.next;
+//            }else {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//    }
 
 //    public static int search(int[] nums, int target) {
 //        int top = nums.length -1 ;
