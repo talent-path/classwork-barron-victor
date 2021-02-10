@@ -26,11 +26,22 @@ public class DealerController {
         return ResponseEntity.ok(service.getCollection());
     }
 
+    @GetMapping("/searchbyid")
+    public ResponseEntity getById(@PathVariable Integer id){
+        return ResponseEntity.ok(service.getById(id));
+    }
+
     @PutMapping("/editinventory")
     public ResponseEntity editCar(@RequestBody Car toAdd){
         Car completed = service.editCar(toAdd);
         return ResponseEntity.ok(completed);
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity deleteCar(@PathVariable Integer id){
+        service.deleteCar(id);
+        return ResponseEntity.ok("Successful Delete");
+    }
+
 
 
 }

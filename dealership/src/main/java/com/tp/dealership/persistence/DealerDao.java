@@ -9,4 +9,7 @@ public interface DealerDao {
     public Car addCar(Car toAdd);
 
     public Car editCar(Car toAdd);
+    public void deleteCar(Integer id);
+
+    public Car getById(Integer id);
 }

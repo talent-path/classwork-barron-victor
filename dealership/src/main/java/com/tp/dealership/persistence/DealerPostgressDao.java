@@ -2,6 +2,7 @@ package com.tp.dealership.persistence;
 
 import com.tp.dealership.models.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -11,10 +12,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Component
+@Profile({"production","daoTesting"})
 public class DealerPostgressDao implements DealerDao{
 
     @Autowired
-    JdbcTemplate template;
+    private JdbcTemplate template;
 
     @Override
     public List<Car> getCollection(){
@@ -28,6 +30,7 @@ public class DealerPostgressDao implements DealerDao{
     public Car addCar(Car toAdd){
 
         //providing the ? for values to then add values into data to avoid sql injection.
+        //change query for update
         Integer id = template.queryForObject("INSERT INTO \"car collection\"(\n" +
                 "\tmake, model, miles, color, year, owners, passinspec, vin, price)\n" +
                 "\tVALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING \"id\";", new CarIdMapper(), toAdd.getMake(), toAdd.getModel(), toAdd.getMiles(), toAdd.getColor(),
@@ -48,7 +51,18 @@ public class DealerPostgressDao implements DealerDao{
         return toAdd;
     }
 
+    @Override
+    public void deleteCar(Integer id) {
+        template.queryForObject("DELETE FROM public.\"car collection\"\n" +
+                "\tWHERE id=?;", new CarIdMapper(),id);
+    }
 
+    @Override
+    public Car getById(Integer id) {
+        List<Car> toReturn = template.query("SELECT id, make, model, miles, color, year, owners, passinspec, vin, price\n" +
+                "\tFROM public.\"car collection\";", new CarMapper());
+        return toReturn;
+    }
 
 
     class CarMapper implements RowMapper<Car>{

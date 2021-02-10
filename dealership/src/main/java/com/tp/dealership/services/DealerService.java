@@ -27,4 +27,13 @@ public class DealerService {
     }
 
 
+    public void deleteCar(Integer id) {
+        //validate
+        dao.deleteCar(id);
+    }
+
+    public Car getById(Integer id) {
+        //validate this
+        return dao.getById(id);
+    }
 }
