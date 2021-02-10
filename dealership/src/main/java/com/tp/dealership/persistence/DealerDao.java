@@ -7,4 +7,6 @@ import java.util.List;
 public interface DealerDao {
     public List<Car> getCollection();
     public Car addCar(Car toAdd);
+
+    public Car editCar(Car toAdd);
 }

@@ -20,4 +20,11 @@ public class DealerService {
         //validate entry
         return dao.addCar(toAdd);
     }
+
+    public Car editCar(Car toAdd) {
+        //validate entry
+        return dao.editCar(toAdd);
+    }
+
+
 }

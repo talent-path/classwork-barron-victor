@@ -37,16 +37,32 @@ public class DealerPostgressDao implements DealerDao{
         return toAdd;
     }
 
+    @Override
+    public Car editCar(Car toAdd) {
+        Integer id = template.queryForObject("UPDATE public.\"car collection\"\n" +
+                        "\tSET make=?, model=?, miles=?, color=?, year=?, owners=?, passinspec=?, vin=?, price=?\n" +
+                        "\tWHERE id= ? RETURNING \"id\";", new CarIdMapper(), toAdd.getMake(), toAdd.getModel(), toAdd.getMiles(), toAdd.getColor(),
+                toAdd.getYear(),toAdd.getOwners(),toAdd.isPassedInspec(),toAdd.getVin(), toAdd.getPrice(),toAdd.getId());
+
+        toAdd.setId(id);
+        return toAdd;
+    }
+
+
+
+
     class CarMapper implements RowMapper<Car>{
 
         @Override
         public Car mapRow(ResultSet resultSet, int i) throws SQLException {
             Car mappedCar = new Car();
+            mappedCar.setId(resultSet.getInt("id"));
             mappedCar.setMake(resultSet.getString("make") );
             mappedCar.setModel(resultSet.getString("model"));
             mappedCar.setColor(resultSet.getString("color"));
             mappedCar.setYear(resultSet.getInt("year"));
             mappedCar.setOwners(resultSet.getInt("owners"));
+            mappedCar.setMiles(resultSet.getInt("miles"));
             mappedCar.setPassedInspec(resultSet.getBoolean("passinspec"));
             mappedCar.setVin(resultSet.getString("vin"));
             mappedCar.setPrice(resultSet.getInt("price"));

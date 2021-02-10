@@ -21,5 +21,16 @@ public class DealerController {
         return ResponseEntity.ok(completed);
     }
 
+    @GetMapping("/allvehicles")
+    public ResponseEntity getAll(){
+        return ResponseEntity.ok(service.getCollection());
+    }
+
+    @PutMapping("/editinventory")
+    public ResponseEntity editCar(@RequestBody Car toAdd){
+        Car completed = service.editCar(toAdd);
+        return ResponseEntity.ok(completed);
+    }
+
 
 }
