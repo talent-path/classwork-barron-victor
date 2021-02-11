@@ -49,28 +49,60 @@ public class Application {
 //        System.out.println(isValidSudoku(secondBoard));
 
         //System.out.println(minDays(10));
-
+int[][] result = {{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}};
+        System.out.println(islandPerimeter(result));
 
 
     }
 
 
-    public boolean validTicTacToe(String[] board) {
-        boolean done = false;
-        int xCount = 0;
-        int oCount = 0;
-        for(int i = 0; i < 3 ; i++){
-            for(int k = 0; k < 3;k++) {
-                if (board[i].charAt(k) == 'X') xCount++;
-                if (board[i].charAt(k) == 'O') oCount++;
+    public static int islandPerimeter(int[][] grid) {
+        int toReturn = 0;
+        for(int i = 0; i < grid.length;i++){
+            for(int j = 0; j < grid[i].length;j++){
+                if(grid[i][j] == 1){
+                    if(i > 0){              //check box above
+                        if(grid[i - 1][j] == 0){
+                            toReturn++;
+                        }
+                    }
+                    if(j > 0){              //check left box
+                        if(grid[i][j-1] == 0){
+                            toReturn++;
+                        }
+                    }
+                    if(j < grid.length - 1){//checks right box
+                        if(grid[i][j + 1] == 0){
+                            toReturn++;
+                        }
+                    }
+                    if( i > grid.length - 1){//checks botton box
+                        if(grid[i + 1][j] == 0){
+                            toReturn++;
+                        }
+                    }
+                }
             }
         }
-        if(xCount == xCount){
-            return false;
-        }
-        return true;
+        return toReturn;
     }
-Set<Integer> col = new Set<Integer>();
+
+//    public boolean validTicTacToe(String[] board) {
+//        boolean done = false;
+//        int xCount = 0;
+//        int oCount = 0;
+//        for(int i = 0; i < 3 ; i++){
+//            for(int k = 0; k < 3;k++) {
+//                if (board[i].charAt(k) == 'X') xCount++;
+//                if (board[i].charAt(k) == 'O') oCount++;
+//            }
+//        }
+//        if(xCount == xCount){
+//            return false;
+//        }
+//        return true;
+//    }
+//Set<Integer> col = new Set<Integer>();
 
 //
 //    public static int minDays(int n) {

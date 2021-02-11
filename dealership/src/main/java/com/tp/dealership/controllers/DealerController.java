@@ -1,5 +1,6 @@
 package com.tp.dealership.controllers;
 
+import com.tp.dealership.exceptions.InvalidInputException;
 import com.tp.dealership.models.Car;
 import com.tp.dealership.services.DealerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,12 @@ public class DealerController {
 
     @PostMapping("/addcar")
     public ResponseEntity addcar(@RequestBody Car toAdd){
-        Car completed = service.addCar(toAdd);
+        Car completed = null;
+        try {
+            completed = service.addCar(toAdd);
+        } catch (InvalidInputException e) {
+            e.getMessage();
+        }
         return ResponseEntity.ok(completed);
     }
 
@@ -26,14 +32,19 @@ public class DealerController {
         return ResponseEntity.ok(service.getCollection());
     }
 
-    @GetMapping("/searchbyid")
+    @GetMapping("/searchbyid/{id}")
     public ResponseEntity getById(@PathVariable Integer id){
         return ResponseEntity.ok(service.getById(id));
     }
 
     @PutMapping("/editinventory")
     public ResponseEntity editCar(@RequestBody Car toAdd){
-        Car completed = service.editCar(toAdd);
+        Car completed = null;
+        try {
+            completed = service.editCar(toAdd);
+        } catch (InvalidInputException e) {
+            e.getMessage();
+        }
         return ResponseEntity.ok(completed);
     }
     @DeleteMapping("/delete/{id}")

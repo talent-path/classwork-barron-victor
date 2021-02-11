@@ -12,6 +12,8 @@ public class Car {
     private double price;
     private String vin;
 
+    public Car() { }
+
     public String getVin() {
         return vin;
     }

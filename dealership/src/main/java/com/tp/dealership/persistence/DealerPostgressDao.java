@@ -53,14 +53,15 @@ public class DealerPostgressDao implements DealerDao{
 
     @Override
     public void deleteCar(Integer id) {
-        template.queryForObject("DELETE FROM public.\"car collection\"\n" +
-                "\tWHERE id=?;", new CarIdMapper(),id);
+        template.execute("DELETE FROM public.\"car collection\"\n" +
+                "\tWHERE id= "+ id +" ;");
     }
 
     @Override
     public Car getById(Integer id) {
-        List<Car> toReturn = template.query("SELECT id, make, model, miles, color, year, owners, passinspec, vin, price\n" +
-                "\tFROM public.\"car collection\";", new CarMapper());
+        Car toReturn =  template.queryForObject("SELECT id, make, model, miles, color, year, owners, passinspec, vin, price\n" +
+                "\tFROM public.\"car collection\"\n" +
+                "\tWHERE id = ?;", new CarMapper(),id);
         return toReturn;
     }
 

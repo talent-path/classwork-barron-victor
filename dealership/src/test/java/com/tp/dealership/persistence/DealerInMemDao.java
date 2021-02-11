@@ -29,4 +29,9 @@ public class DealerInMemDao implements DealerDao {
     public void deleteCar(Integer id) {
 
     }
+
+    @Override
+    public Car getById(Integer id) {
+        return null;
+    }
 }
