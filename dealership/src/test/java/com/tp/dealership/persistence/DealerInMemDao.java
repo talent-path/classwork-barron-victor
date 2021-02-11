@@ -17,7 +17,7 @@ public class DealerInMemDao implements DealerDao {
 
     @Override
     public Car addCar(Car toAdd) {
-        return null;
+        return toAdd;
     }
 
     @Override

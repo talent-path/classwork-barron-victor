@@ -54,7 +54,7 @@ public class DealerPostgressDao implements DealerDao{
     @Override
     public void deleteCar(Integer id) {
         template.execute("DELETE FROM public.\"car collection\"\n" +
-                "\tWHERE id= "+ id +" ;");
+                "\tWHERE id= "+ id +";");
     }
 
     @Override

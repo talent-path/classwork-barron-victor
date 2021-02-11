@@ -4,6 +4,7 @@ import com.tp.dealership.exceptions.InvalidInputException;
 import com.tp.dealership.models.Car;
 import com.tp.dealership.services.DealerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class DealerController {
         try {
             completed = service.addCar(toAdd);
         } catch (InvalidInputException e) {
-            e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
         return ResponseEntity.ok(completed);
     }
@@ -43,7 +44,7 @@ public class DealerController {
         try {
             completed = service.editCar(toAdd);
         } catch (InvalidInputException e) {
-            e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
         return ResponseEntity.ok(completed);
     }
