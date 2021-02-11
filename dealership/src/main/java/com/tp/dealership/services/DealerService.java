@@ -40,6 +40,7 @@ public class DealerService {
 
 //TODO check for wrong types for all
     public Car editCar(Car toAdd) throws InvalidInputException {
+        if(!(toAdd.getYear() > 1950 && toAdd.getYear() < 2021)){throw new InvalidInputException("Year is not in range.");}
         if(toAdd.getMake().isBlank()){ throw new InvalidInputException("Make is empty."); }
         toAdd.setMake(toAdd.getMake().toLowerCase());
         if(toAdd.getModel().isBlank()){ throw new InvalidInputException("Model is empty."); }
@@ -49,8 +50,8 @@ public class DealerService {
         if(toAdd.getPrice() < 1000){throw new InvalidInputException("Price is too low.");}
         if(toAdd.getVin().isBlank()){throw new InvalidInputException("Vin is empty.");}
         toAdd.setVin(toAdd.getVin().toLowerCase());
-        if(!(toAdd.getMiles() > 10 && toAdd.getMiles() < 200000) ){ }
-        else{ throw new InvalidInputException("Miles are not within range."); }
+        if(!(toAdd.getMiles() > 10 && toAdd.getMiles() < 200000) ){throw new InvalidInputException("Miles are not within range."); }
+        if(toAdd.getOwners() < 1){throw new InvalidInputException("Owners is incorrect");}
         return dao.editCar(toAdd);
     }
 
