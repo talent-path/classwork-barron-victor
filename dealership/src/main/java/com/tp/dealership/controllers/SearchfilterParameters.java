@@ -4,7 +4,7 @@ public class SearchfilterParameters {
     Integer yearStart; //range year start
     Integer yearEnd;   //range year end
     String make;
-    String model;
+    String model ;
     Integer miles; //miles less then
     String color;
     Integer owners;

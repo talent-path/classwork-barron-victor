@@ -1,12 +1,14 @@
 package com.tp.dealership.persistence;
 
 
+import com.tp.dealership.controllers.SearchfilterParameters;
 import com.tp.dealership.exceptions.InvalidIdException;
 import com.tp.dealership.models.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.SQLWarningException;
@@ -149,16 +151,76 @@ public class DealerPostgresDaoTest {
 
         toTest.deleteCar(1);
         int id = returned.getId();
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getId());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getMake());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getModel());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getYear());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getMiles());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getColor());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getOwners());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).isPassedInspec());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getVin());
-        assertThrows(EmptyResultDataAccessException.class,() -> toTest.getById(id).getPrice());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getId());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getMake());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getModel());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getYear());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getMiles());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getColor());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getOwners());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).isPassedInspec());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getVin());
+        assertThrows(InvalidIdException.class,() -> toTest.getById(id).getPrice());
+
+    }
+
+    @Test
+    public void filterSearchTest() throws InvalidIdException {
+        Car CarOne = new Car();
+        CarOne.setMake("Honda");
+        CarOne.setModel("NSX");
+        CarOne.setYear(2002);
+        CarOne.setMiles(10000);
+        CarOne.setColor("white");
+        CarOne.setOwners(1);
+        CarOne.setPassedInspec(true);
+        CarOne.setVin("UNIQUE");
+        CarOne.setPrice(40000.00);
+
+        Car CarTwo = new Car();
+        CarTwo.setMake("Honda");
+        CarTwo.setModel("CRV");
+        CarTwo.setYear(2008);
+        CarTwo.setMiles(50000);
+        CarTwo.setColor("grey");
+        CarTwo.setOwners(2);
+        CarTwo.setPassedInspec(true);
+        CarTwo.setVin("HondaCRv");
+        CarTwo.setPrice(6000.00);
+
+        Car carThree = new Car();
+        carThree.setMake("Toyota");
+        carThree.setModel("Supra");
+        carThree.setYear(2019);
+        carThree.setMiles(5000);
+        carThree.setColor("white");
+        carThree.setOwners(1);
+        carThree.setPassedInspec(true);
+        carThree.setVin("DreamsComeTrue");
+        carThree.setPrice(30000.00);
+
+        Car reOne = toTest.addCar(CarOne);
+        Car reTwo = toTest.addCar(CarTwo);
+        Car reThree = toTest.addCar(carThree);
+
+        SearchfilterParameters toSearch = new SearchfilterParameters();
+        toSearch.setMake("honda");
+
+        List<Car> result = toTest.filterSearch(toSearch);
+
+        assertEquals(1, result.get(0));
+        assertEquals("honda", toTest.getById(result.get(0).getId()).getMake());
+        assertEquals("nsx", toTest.getById(result.get(0).getId()).getModel());
+        assertEquals(2002, toTest.getById(result.get(0).getId()).getYear());
+        assertEquals(10000, toTest.getById(result.get(0).getId()).getMiles());
+        assertEquals("white", toTest.getById(result.get(0).getId()).getColor());
+        assertEquals(1, toTest.getById(result.get(0).getId()).getOwners());
+        assertEquals(true, toTest.getById(result.get(0).getId()).isPassedInspec());
+        assertEquals("unique", toTest.getById(result.get(0).getId()).getVin());
+        assertEquals(40000.00, toTest.getById(result.get(0).getId()).getPrice());
+
+
+
 
     }
 
