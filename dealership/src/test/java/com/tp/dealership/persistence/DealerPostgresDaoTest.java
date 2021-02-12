@@ -1,6 +1,7 @@
 package com.tp.dealership.persistence;
 
 
+import com.tp.dealership.exceptions.InvalidIdException;
 import com.tp.dealership.models.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,7 @@ public class DealerPostgresDaoTest {
 
 
     @Test
-    public void getById(){
+    public void getById() throws InvalidIdException {
         Car toAdd = new Car();
         toAdd.setMake("Honda");
         toAdd.setModel("NSX");
@@ -58,7 +59,7 @@ public class DealerPostgresDaoTest {
 
 
     @Test
-    public void addCarTest(){
+    public void addCarTest() throws InvalidIdException {
         Car toAdd = new Car();
         toAdd.setMake("Honda");
         toAdd.setModel("NSX");
@@ -88,7 +89,7 @@ public class DealerPostgresDaoTest {
 
 
     @Test
-    public void editCarTest(){
+    public void editCarTest() throws InvalidIdException {
         Car original = new Car();
         original.setMake("Honda");
         original.setModel("NSX");

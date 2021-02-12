@@ -1,9 +1,11 @@
 package com.tp.dealership.persistence;
 
 import com.tp.dealership.controllers.SearchfilterParameters;
+import com.tp.dealership.exceptions.InvalidIdException;
 import com.tp.dealership.models.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -59,10 +61,15 @@ public class DealerPostgressDao implements DealerDao{
     }
 
     @Override
-    public Car getById(Integer id) {
-        Car toReturn =  template.queryForObject("SELECT id, make, model, miles, color, year, owners, passinspec, vin, price\n" +
-                "\tFROM public.\"car collection\"\n" +
-                "\tWHERE id = ?;", new CarMapper(),id);
+    public Car getById(Integer id) throws InvalidIdException {
+        Car toReturn = null;
+        try {
+            toReturn = template.queryForObject("SELECT id, make, model, miles, color, year, owners, passinspec, vin, price\n" +
+                    "\tFROM public.\"car collection\"\n" +
+                    "\tWHERE id = ?;", new CarMapper(), id);
+        }catch (EmptyResultDataAccessException e){
+            throw new InvalidIdException("Invalid Id.");
+        }
         return toReturn;
     }
 

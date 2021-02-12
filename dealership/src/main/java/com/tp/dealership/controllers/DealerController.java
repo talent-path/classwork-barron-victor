@@ -1,5 +1,6 @@
 package com.tp.dealership.controllers;
 
+import com.tp.dealership.exceptions.InvalidIdException;
 import com.tp.dealership.exceptions.InvalidInputException;
 import com.tp.dealership.models.Car;
 import com.tp.dealership.services.DealerService;
@@ -35,7 +36,11 @@ public class DealerController {
 
     @GetMapping("/searchbyid/{id}")
     public ResponseEntity getById(@PathVariable Integer id){
-        return ResponseEntity.ok(service.getById(id));
+        try {
+            return ResponseEntity.ok(service.getById(id));
+        } catch (InvalidIdException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PutMapping("/editinventory")

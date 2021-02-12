@@ -1,12 +1,15 @@
 package com.tp.dealership.services;
 
 import com.tp.dealership.controllers.SearchfilterParameters;
+import com.tp.dealership.exceptions.InvalidIdException;
 import com.tp.dealership.exceptions.InvalidInputException;
 import com.tp.dealership.models.Car;
 import com.tp.dealership.persistence.DealerDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Component
@@ -59,9 +62,9 @@ public class DealerService {
 
     }
 //todo -- this one must check of number is in the database otherwise it will stack trace
-    public Car getById(Integer id) {
+    public Car getById(Integer id) throws InvalidIdException {
         //check to see if it exists?
-        //have a try catch here and if it returns exception i can send a message saying it was an invalid entry
+
         return dao.getById(id);
     }
 //TODO -- VALIDATE ALL ENTRIES ARE WITHIN RANGE AND NOT EMPTY AND CAST STRINGS TO LOWERCASE
