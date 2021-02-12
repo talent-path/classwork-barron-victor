@@ -1,5 +1,6 @@
 package com.tp.dealership.persistence;
 
+import com.tp.dealership.controllers.SearchfilterParameters;
 import com.tp.dealership.models.Car;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface DealerDao {
     public void deleteCar(Integer id);
 
     public Car getById(Integer id);
+
+    public List<Car> filterSearch(SearchfilterParameters toSearch);
 }

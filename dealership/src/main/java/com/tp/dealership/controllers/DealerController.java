@@ -54,6 +54,17 @@ public class DealerController {
         return ResponseEntity.ok("Successful Delete");
     }
 
+    @GetMapping("/searchbyfilters")
+    public ResponseEntity filterSearch(@RequestBody SearchfilterParameters toSearch){
+        List<Car> toReturn = null;
+        try {
+            toReturn = service.filterSearch(toSearch);
+        } catch (InvalidInputException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        return ResponseEntity.ok(toReturn);
+    }
+
 
 
 }

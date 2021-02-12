@@ -1,5 +1,6 @@
 package com.tp.dealership.persistence;
 
+import com.tp.dealership.controllers.SearchfilterParameters;
 import com.tp.dealership.models.Car;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -32,6 +33,11 @@ public class DealerInMemDao implements DealerDao {
 
     @Override
     public Car getById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public List<Car> filterSearch(SearchfilterParameters toSearch) {
         return null;
     }
 }

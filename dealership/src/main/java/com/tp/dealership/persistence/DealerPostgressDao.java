@@ -1,5 +1,6 @@
 package com.tp.dealership.persistence;
 
+import com.tp.dealership.controllers.SearchfilterParameters;
 import com.tp.dealership.models.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -62,6 +63,107 @@ public class DealerPostgressDao implements DealerDao{
         Car toReturn =  template.queryForObject("SELECT id, make, model, miles, color, year, owners, passinspec, vin, price\n" +
                 "\tFROM public.\"car collection\"\n" +
                 "\tWHERE id = ?;", new CarMapper(),id);
+        return toReturn;
+    }
+
+    @Override
+    public List<Car> filterSearch(SearchfilterParameters toSearch) {
+        List<Car> collection = template.query("SELECT id, make, model, miles, color, year, owners, passinspec, vin, price\n" +
+                "\tFROM public.\"car collection\" WHERE " + filteredInput(toSearch) +";", new CarMapper());
+
+        return collection;
+    }
+
+
+    //helper method that builds a string for the where clause of the sql for filterSearch
+    private String filteredInput(SearchfilterParameters toSearch) {
+        String toReturn = "";
+        Boolean needsAnd  = true;
+        if(toSearch.getYearStart() != null || toSearch.getYearEnd() != null){
+            if(toSearch.getYearStart() == null){
+                toReturn = toReturn + ("year >= 1992");
+            }
+            else{
+                toReturn = toReturn + ("year >= " + toSearch.getYearStart());
+            }
+            toReturn = toReturn + (" AND ");
+            if(toSearch.getYearEnd() == null){
+                toReturn = toReturn + ("year <= 2020");
+            }
+            else{
+                toReturn = toReturn + ("year <= " + toSearch.getYearEnd());
+            }
+            needsAnd = false;
+        } //handles year
+
+        if(toSearch.getPriceStart() != null || toSearch.getPriceEnd() != null){
+            if(!needsAnd){
+                toReturn = toReturn + (" AND ");
+            }
+            if(toSearch.getPriceStart() == null){
+                toReturn = toReturn + ("price > 0");
+            }
+            else{
+                toReturn = toReturn + ("price >= " + toSearch.getPriceStart());
+            }
+            toReturn.concat(" AND ");
+            if(toSearch.getPriceEnd() == null){
+                toReturn = toReturn + ("price <= 1000000");
+            }
+            else{
+                toReturn = toReturn + ("price <= " + toSearch.getPriceEnd());
+            }
+            needsAnd = false;
+        }//price range
+
+        if(toSearch.getMake() != null){
+            if(!needsAnd){
+                toReturn = toReturn + (" AND ");
+            }
+            toReturn = toReturn + ("make = '" + toSearch.getMake() + "'");
+            needsAnd = false;
+        } //handles make (S)
+
+        if(toSearch.getModel() != null){
+            if(!needsAnd){
+                toReturn = toReturn + (" AND ");
+            }
+            toReturn = toReturn + ("model = '" + toSearch.getModel() + "'");
+            needsAnd = false;
+        }//handles model (S)
+
+        if(toSearch.getMiles() != null){
+            if(!needsAnd){
+                toReturn = toReturn + (" AND ");
+            }
+            toReturn = toReturn + ("miles < " + toSearch.getMiles());
+            needsAnd = false;
+        }//handles miles
+
+        if(toSearch.getColor() != null){
+            if(!needsAnd){
+                toReturn = toReturn + (" AND ");
+            }
+            toReturn = toReturn + ("color = '" + toSearch.getColor() +"'");
+            needsAnd = false;
+        }//handles color (S)
+
+        if(toSearch.getOwners() != null){
+            if(!needsAnd){
+                toReturn = toReturn + (" AND ");
+            }
+            toReturn = toReturn + ("owners <= " + toSearch.getOwners());
+            needsAnd = false;
+        }//handles owners
+
+        if(toSearch.getPassinspec() != null){
+            if(!needsAnd){
+                toReturn = toReturn + (" AND ");
+            }
+            toReturn = toReturn + ("passinspec = " + toSearch.getPassinspec());
+            needsAnd = false;
+        }//handles passinspec
+
         return toReturn;
     }
 
