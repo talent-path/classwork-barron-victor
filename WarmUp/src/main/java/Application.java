@@ -49,43 +49,73 @@ public class Application {
 //        System.out.println(isValidSudoku(secondBoard));
 
         //System.out.println(minDays(10));
-int[][] result = {{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}};
-        System.out.println(islandPerimeter(result));
-
+//int[][] result = {{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}};
+//        System.out.println(islandPerimeter(result));
+//        Node root = new Node(1,null,3,2,4,null,5,6);
+//        System.out.println(maxDepth(root));
 
     }
 
 
-    public static int islandPerimeter(int[][] grid) {
-        int toReturn = 0;
-        for(int i = 0; i < grid.length;i++){
-            for(int j = 0; j < grid[i].length;j++){
-                if(grid[i][j] == 1){
-                    if(i > 0){              //check box above
-                        if(grid[i - 1][j] == 0){
-                            toReturn++;
-                        }
-                    }
-                    if(j > 0){              //check left box
-                        if(grid[i][j-1] == 0){
-                            toReturn++;
-                        }
-                    }
-                    if(j < grid.length - 1){//checks right box
-                        if(grid[i][j + 1] == 0){
-                            toReturn++;
-                        }
-                    }
-                    if( i > grid.length - 1){//checks botton box
-                        if(grid[i + 1][j] == 0){
-                            toReturn++;
-                        }
-                    }
-                }
-            }
-        }
-        return toReturn;
-    }
+//    static class Node {
+//        public int val;
+//        public List<Node> children;
+//
+//        public Node() {}
+//
+//        public Node(int _val) {
+//            val = _val;
+//        }
+//
+//        public Node(int _val, List<Node> _children) {
+//            val = _val;
+//            children = _children;
+//        }
+//    };
+//
+//    public static int maxDepth(Node root) {
+//        int currDepth = 0;
+//        int mDepth = 1;
+//        if(root == null){return 0;}
+//        if(root.children !=null){
+//            for(Node toCheck: root.children){
+//                currDepth = maxDepth(toCheck.) + 1;
+//                if(currDepth > mDepth){ mDepth = currDepth;}
+//            }
+//        }
+//        return mDepth;
+//    }
+
+//    public static int islandPerimeter(int[][] grid) {
+//        int toReturn = 0;
+//        for(int i = 0; i < grid.length;i++){
+//            for(int j = 0; j < grid[i].length;j++){
+//                if(grid[i][j] == 1){
+//                    if(i > 0){              //check box above
+//                        if(grid[i - 1][j] == 0){
+//                            toReturn++;
+//                        }
+//                    }
+//                    if(j > 0){              //check left box
+//                        if(grid[i][j-1] == 0){
+//                            toReturn++;
+//                        }
+//                    }
+//                    if(j < grid.length - 1){//checks right box
+//                        if(grid[i][j + 1] == 0){
+//                            toReturn++;
+//                        }
+//                    }
+//                    if( i > grid.length - 1){//checks botton box
+//                        if(grid[i + 1][j] == 0){
+//                            toReturn++;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return toReturn;
+//    }
 
 //    public boolean validTicTacToe(String[] board) {
 //        boolean done = false;
