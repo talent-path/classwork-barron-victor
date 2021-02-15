@@ -204,21 +204,37 @@ public class DealerPostgresDaoTest {
         Car reThree = toTest.addCar(carThree);
 
         SearchfilterParameters toSearch = new SearchfilterParameters();
-        toSearch.setMake("honda");
+        toSearch.setMake("Honda");
 
         List<Car> result = toTest.filterSearch(toSearch);
-
-        assertEquals(1, result.get(0));
-        assertEquals("honda", toTest.getById(result.get(0).getId()).getMake());
-        assertEquals("nsx", toTest.getById(result.get(0).getId()).getModel());
+        //testing single field search
+        assertEquals(1, toTest.getById(result.get(0).getId()).getId());
+        assertEquals("Honda", toTest.getById(result.get(0).getId()).getMake());
+        assertEquals("NSX", toTest.getById(result.get(0).getId()).getModel());
         assertEquals(2002, toTest.getById(result.get(0).getId()).getYear());
         assertEquals(10000, toTest.getById(result.get(0).getId()).getMiles());
         assertEquals("white", toTest.getById(result.get(0).getId()).getColor());
         assertEquals(1, toTest.getById(result.get(0).getId()).getOwners());
         assertEquals(true, toTest.getById(result.get(0).getId()).isPassedInspec());
-        assertEquals("unique", toTest.getById(result.get(0).getId()).getVin());
+        assertEquals("UNIQUE", toTest.getById(result.get(0).getId()).getVin());
         assertEquals(40000.00, toTest.getById(result.get(0).getId()).getPrice());
 
+
+        toSearch.setModel("CRV");
+
+        result = toTest.filterSearch(toSearch);
+        //testing search with 2 fields
+
+        assertEquals(2, toTest.getById(result.get(0).getId()).getId());
+        assertEquals("Honda", toTest.getById(result.get(0).getId()).getMake());
+        assertEquals("CRV", toTest.getById(result.get(0).getId()).getModel());
+        assertEquals(2008, toTest.getById(result.get(0).getId()).getYear());
+        assertEquals(50000, toTest.getById(result.get(0).getId()).getMiles());
+        assertEquals("grey", toTest.getById(result.get(0).getId()).getColor());
+        assertEquals(2, toTest.getById(result.get(0).getId()).getOwners());
+        assertEquals(true, toTest.getById(result.get(0).getId()).isPassedInspec());
+        assertEquals("HondaCRv", toTest.getById(result.get(0).getId()).getVin());
+        assertEquals(6000.00, toTest.getById(result.get(0).getId()).getPrice());
 
 
 
