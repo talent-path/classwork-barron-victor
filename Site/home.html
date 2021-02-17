@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--lang="en" tells search engines and browsers wjat language this page is written in -->
+<html lang="en">
+    <!-- defines information about the page "metadata"-->
+    <head>
+        <!--choose the character encoding -->
+        <meta charset="UTF-8">
+        <!-- specifigy that we want to adjust the width of the viewport to use the whole width of device -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Site</title>
+    </head>
+    <body>
+<header>
+</header>
+
+<main>
+    <button onclick="toggleAllElements();"></button>
+    <!-- input tag used to hanfle all sorts of input-->
+    <input type="text" value="this is my default">
+
+    <input type="text" placeholder="this is the placeholder">
+
+
+    <!-- href to link to google-->
+    <a href="http://google.com">
+        Click here to go to google
+    </a>
+    <br>
+    <a href="http://google.com" style="margin: 50px;display: block;"><img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+        alt="the main google logo"></a>
+    <h1>This is an H1 tag</h1>
+    <h2>This is an H2 tag</h2>
+    <h3>This is an H3 tag</h3>
+    <h4>This is an H4 tag</h4>
+    <h5>This is an H5 tag</h5>
+    <h6>This is an H6 tag</h6>
+    <!-- "unordered list"-->
+    <ul>
+        <li>
+            this is the first item
+        </li>
+        <li>
+            the is the second
+        </li>
+    </ul>
+    <ol>
+        <li>
+            this one is ordered
+        </li>
+        <li>
+            this second one is orded
+        </li>
+    </ol>
+
+
+
+    <div style="display: none;">
+        <!-- to main layout options for tags block-level or inline -->
+
+        <!-- block level tags -->
+        <!-- take the full width by default 
+                will always create a new line -->
+        <!-- inline elements
+                stay in the current line
+                cannot contain block elements
+        -->
+        this text comes before the span<span> span tags inline</span>after span
+        <br/>
+
+        <!-- inline syles (not the best practice) 
+        set an attribute of the tage called style
+        well be setting style properties that later
+        we'd want to move to a serperate style sheet
+        -->
+        this is the text before<p style="display: inline;"> This paragragh tag has been made inline</p>
+        this is the text after
+        <br/>
+
+        this is the text before the block styled span 
+        <span style="display: block;"> this span tag has been made block</span>
+        text after block span 
+        <br/>
+        <p style="margin: 0%;">This paragragh has no margins</p>
+    </div>
+</main>
+
+<footer>
+</footer>
+<script type="text/javascript" src="home.js">
+
+</script>
+    </body>
+</html>

@@ -61,14 +61,12 @@ public class DealerService {
         dao.deleteCar(id);
 
     }
-//todo -- this one must check of number is in the database otherwise it will stack trace
-    public Car getById(Integer id) throws InvalidIdException {
-        //check to see if it exists?
 
+    public Car getById(Integer id) throws InvalidIdException {
         return dao.getById(id);
     }
-//TODO -- VALIDATE ALL ENTRIES ARE WITHIN RANGE AND NOT EMPTY AND CAST STRINGS TO LOWERCASE
 
+    //VALIDATE ALL ENTRIES ARE WITHIN RANGE AND NOT EMPTY AND CAST STRINGS TO LOWERCASE
     //dont have to worry about Strings being empty because if its null it wont search that specific one and this will have a drop down on user side
     public List<Car> filterSearch(SearchfilterParameters toSearch) throws InvalidInputException {
         if(toSearch.getYearStart() != null){

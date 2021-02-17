@@ -53,7 +53,31 @@ public class Application {
 //        System.out.println(islandPerimeter(result));
 //        Node root = new Node(1,null,3,2,4,null,5,6);
 //        System.out.println(maxDepth(root));
+        System.out.println(letterCasePermutation("1sdf2"));
+    }
 
+    public static List<String> letterCasePermutation(String S) {
+        List<String> toReturn = new ArrayList();
+        if(S.length() == 0){
+            toReturn.add(S);
+        }
+        else{
+            char[] seq = S.toCharArray();
+            for(int i = 0; i < S.length(); i++){
+                char toCheck = S.charAt(i);
+                if(Character.isLetter(toCheck)){
+                    seq[i] = Character.toLowerCase(S.charAt(i));
+                    toReturn.add(seq.toString());
+                    seq[i] = Character.toUpperCase(S.charAt(i));
+                    toReturn.add(seq.toString());
+                }
+            }
+            //add all lower case to the list
+        }
+
+
+
+        return toReturn;
     }
 
 

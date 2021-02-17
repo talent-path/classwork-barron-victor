@@ -178,5 +178,10 @@ public class DealershipServiceTest {
 
     }
 
+    @Test
+    public void filterSearchInvalidTests(){
+
+    }
+
 
 }
