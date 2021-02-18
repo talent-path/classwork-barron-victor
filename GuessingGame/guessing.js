@@ -1,6 +1,7 @@
 let answer = [];
 
 
+
 let startNumbers = function(){
     let firstNum = Math.floor(Math.random() * (10 - 1) + 1);
     answer.push(firstNum);
@@ -16,7 +17,7 @@ let startNumbers = function(){
     }
     console.log(answer);
 }
-
+startNumbers();
 let submit = function(){
     let submition = document.getElementById("sub").value;
     let thisFun = num => Number(num);
@@ -26,12 +27,20 @@ let submit = function(){
     //display colors onto html based on comparison/in the array
     for(let i = 0; i < 4; i++){
         let divToChange = document.getElementById(i);
-        if(anser[i] === parsedInt[i]){
+        if(answer[i] === parsedInt[i]){
             divToChange.style.backgroundColor = "#17F500";
+            document.getElementById(i).innerText = parsedInt[i];
         }
         else if(answer.includes(parsedInt[i])){
-            divToChange.style.ba
+            divToChange.style.backgroundColor = "yellow";
+            document.getElementById(i).innerText = parsedInt[i];
         }
+        else{
+            divToChange.style.backgroundColor = "red";
+            document.getElementById(i).innerText = parsedInt[i]; 
+       }
     }
 
 }
+
+let re
