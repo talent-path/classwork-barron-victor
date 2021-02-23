@@ -1,0 +1,72 @@
+.leftContainer{
+    float: left;
+    font-size:30px;
+    margin: 0%;
+    width: 48%;
+    padding-left: 25px;
+
+}
+.rightContainer{
+    float: right;
+    font-size:30px;
+    margin: 0%;
+    width: 48%;
+    text-align: center;
+    border: 4px dotted #000000;
+    background-color: rgba(0, 0, 0, .3);
+}
+.bigContainer{
+    background-image: url(https://markleisherproductions.com/wp-content/uploads/2015/10/grey-website-background-illusionapparel2.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    text-decoration-color: #708090;
+    color: #FFFFFF;
+}
+
+.image{
+    margin-top: 40px;
+    box-shadow: 5px 5px 33px 35px #FFFFFF;
+    border-radius: 33px;
+    margin-bottom: 40px;
+}
+
+.topBar{
+    background-color: rgba(0, 0, 0, .7);
+    height: 35px;
+    font-size: 30px;
+    vertical-align: 5px;
+    padding: 25px;
+    border-radius: 10px;
+}
+.vinBar{
+    height: 40px;
+    width: 350px;
+    margin: 10px;
+    font-size: 80%;
+}
+.yearBar{
+    height: 40px;
+    width: 100px;
+    margin: 10px;
+    font-size: 80%;
+}
+.leftTitle{
+    width: 49%;
+    margin: 10px;
+    vertical-align: 5px;
+    font-weight: bold;
+}
+.rightTitle{
+    float: right;
+    text-align: center;
+    width: 50%;
+    vertical-align: 5px;
+    font-weight: bold;
+}
+.buttons{
+    height: 40px;
+    vertical-align: 3px;
+    font-weight: bold;
+    font-size:50%;
+    border-radius: 20px;
+}

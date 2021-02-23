@@ -1,0 +1,47 @@
+Id          Name
+----------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1           Convertible/Cabriolet
+2           Minivan
+3           Coupe
+4           Low Speed Vehicle (LSV) / Neighborhood Electric Vehicle (NEV)
+5           Hatchback/Liftback/Notchback
+6           Motorcycle - Standard
+7           Sport Utility Vehicle (SUV)/Multi-Purpose Vehicle (MPV)
+8           Crossover Utility Vehicle (CUV)
+9           Van
+10          Roadster
+11          Truck
+12          Motorcycle - Scooter
+13          Sedan/Saloon
+15          Wagon
+16          Bus
+60          Pickup
+61          Trailer
+62          Incomplete - Cutaway
+63          Incomplete - Chassis Cab (Single Cab)
+66          Truck-Tractor
+67          Incomplete - Stripped Chassis
+68          Streetcar / Trolley
+69          Off-road Vehicle - All Terrain Vehicle (ATV) (Motorcycle-style)
+71          Incomplete - School Bus Chassis
+72          Incomplete - Commercial Bus Chassis
+73          Bus - School Bus
+74          Incomplete - Chassis Cab (Number of Cab Unknown)
+75          Incomplete - Transit Bus Chassis
+76          Incomplete - Motor Coach Chassis
+77          Incomplete - Shuttle Bus Chassis
+78          Incomplete - Motor Home Chassis
+80          Motorcycle - Sport
+81          Motorcycle - Touring / Sport Touring
+82          Motorcycle - Cruiser
+83          Motorcycle - Trike
+84          Off-road Vehicle - Dirt Bike / Off-Road
+85          Motorcycle - Dual Sport / Adventure / Supermoto / On/Off-Road
+86          Off-road Vehicle - Enduro (Off-road long distance racing)
+94          Motorcycle - Custom
+95          Cargo Van
+97          Off-road Vehicle - Snowmobile
+98          Motorcycle - Street
+100         Motorcycle - Enclosed Three Wheeled / Enclosed Autocycle
+103         Motorcycle - Unenclosed Three Wheeled / Open Autocycle
+124         Off-road Vehicle - Golf Cart
