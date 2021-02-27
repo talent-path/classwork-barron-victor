@@ -8,6 +8,7 @@ export interface Board{
     isPlayerOneTurn : boolean;
     makeMove : (this: Board, toMake : Position) => Board;
     pieceAt : ( loc: Position ) => Player;
+    evaluate() : boolean;
 }
 
 export class TicTacToeBoard implements Board{
@@ -27,7 +28,7 @@ export class TicTacToeBoard implements Board{
             for( let row = 0; row < 3; row++ ){
                 this.allSquares[row] = [];
                 for( let col = 0; col < 3; col++ ){
-                    this.allSquares[row][col] = new Player();
+                    this.allSquares[row][col] = null;
                 }
             }
         }
@@ -48,30 +49,46 @@ export class TicTacToeBoard implements Board{
     }
 
     evaluate(): boolean {
+        if(this.allSquares[0][0] != null){
+            if(this.allSquares[0][1] != null && this.allSquares[0][2] != null){
+                console.log("Top Row");
+                if((this.allSquares[0][0].isPlayerOne === this.allSquares[0][1].isPlayerOne) && (this.allSquares[0][1].isPlayerOne === this.allSquares[0][2].isPlayerOne)) return this.allSquares[0][0].isPlayerOne; //top row
+            }
+            if(this.allSquares[1][0] != null && this.allSquares[2][0] != null){
+                console.log("Left Col");
+                if((this.allSquares[0][0].isPlayerOne === this.allSquares[1][0].isPlayerOne) && (this.allSquares[1][0].isPlayerOne === this.allSquares[2][0].isPlayerOne)) return this.allSquares[0][0].isPlayerOne; //left column
+            }
+            if(this.allSquares[1][1] != null && this.allSquares[2][2] != null){
+                console.log("Top left to bot right");
+                if((this.allSquares[0][0].isPlayerOne === this.allSquares[1][1].isPlayerOne) && (this.allSquares[1][1].isPlayerOne === this.allSquares[2][2].isPlayerOne)) return this.allSquares[0][0].isPlayerOne;//Top left to bottom right diagonal
+            }
+        }
+        if(this.allSquares[1][1] != null){
+            if(this.allSquares[1][0] != null && this.allSquares[1][2] != null){
+                console.log("mid Row");
+                if((this.allSquares[1][1].isPlayerOne === this.allSquares[1][0].isPlayerOne) && (this.allSquares[1][0].isPlayerOne  === this.allSquares[1][2].isPlayerOne)) return this.allSquares[1][0].isPlayerOne; //Middle row
+            }
+            if(this.allSquares[0][1] != null && this.allSquares[2][1] != null){
+                console.log("mid col");
+                if((this.allSquares[1][1].isPlayerOne === this.allSquares[0][1].isPlayerOne) && (this.allSquares[0][1].isPlayerOne === this.allSquares[2][1].isPlayerOne)) return this.allSquares[0][1].isPlayerOne; //Middle column
+            }
+            if(this.allSquares[0][2] != null && this.allSquares[2][0] != null){
+                console.log("Top right to bot left");
+                if((this.allSquares[1][1].isPlayerOne === this.allSquares[0][2].isPlayerOne) && (this.allSquares[0][2].isPlayerOne  === this.allSquares[2][0].isPlayerOne)) return this.allSquares[0][2].isPlayerOne; //Top right to left diagonal
+            }
+        }
+        if(this.allSquares[2][2] != null){
+            if(this.allSquares[1][0] != null && this.allSquares[1][2] != null){
+                console.log("right col");
+                if((this.allSquares[2][2].isPlayerOne == this.allSquares[1][0].isPlayerOne) && (this.allSquares[1][0].isPlayerOne === this.allSquares[1][2].isPlayerOne)) return this.allSquares[0][2].isPlayerOne; //right column
+            }
+            if(this.allSquares[2][0] != null && this.allSquares[2][1] != null){
+                console.log("bot Row");
+                if((this.allSquares[2][2].isPlayerOne == this.allSquares[2][0].isPlayerOne) && (this.allSquares[2][0].isPlayerOne === this.allSquares[2][1].isPlayerOne)) return this.allSquares[2][0].isPlayerOne; //Bottom row
+            }
 
-        if(this.allSquares[0][0].isPlayerOne === this.allSquares[0][1].isPlayerOne === this.allSquares[0][2].isPlayerOne) return this.allSquares[0][0].isPlayerOne;     //top row
-
-        else if(this.allSquares[0][0].isPlayerOne === this.allSquares[1][0].isPlayerOne === this.allSquares[2][0].isPlayerOne) return this.allSquares[0][0].isPlayerOne; //left column
-
-        //right column
-        else if(this.allSquares[0][2].isPlayerOne === this.allSquares[1][2].isPlayerOne === this.allSquares[2][2].isPlayerOne) return this.allSquares[0][2].isPlayerOne;
-
-        //Bottom row
-        else if(this.allSquares[2][0].isPlayerOne === this.allSquares[2][1].isPlayerOne === this.allSquares[2][2].isPlayerOne) return this.allSquares[2][0].isPlayerOne;
-
-        //Middle row
-        else if(this.allSquares[1][0].isPlayerOne === this.allSquares[1][1].isPlayerOne === this.allSquares[1][2].isPlayerOne) return this.allSquares[1][0].isPlayerOne;
-
-        //Middle column
-        else if(this.allSquares[0][1].isPlayerOne === this.allSquares[1][1].isPlayerOne === this.allSquares[2][1].isPlayerOne) return this.allSquares[0][1].isPlayerOne;
-
-        //left to bottom right diagonal
-        else if(this.allSquares[0][0].isPlayerOne === this.allSquares[1][1].isPlayerOne === this.allSquares[2][2].isPlayerOne) return this.allSquares[0][0].isPlayerOne;
-
-        //right to left diagonal
-        else if(this.allSquares[0][2].isPlayerOne === this.allSquares[1][1].isPlayerOne === this.allSquares[2][0].isPlayerOne) return this.allSquares[0][2].isPlayerOne;
-
-
+        }
+        return null;
     }
 
 }

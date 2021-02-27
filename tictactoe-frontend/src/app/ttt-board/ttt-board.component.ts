@@ -24,6 +24,15 @@ export class TttBoardComponent implements OnInit {
         else{
           this.board = this.board.makeMove(pos);
         }
+        let eva : boolean = this.board.evaluate();
+        if(eva != null){
+            if(eva){
+                alert("Player One Won!");
+            }
+            else{
+                alert("Player Two Won!");
+            }
+        }
     }
   }
 
